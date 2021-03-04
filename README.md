@@ -1,6 +1,6 @@
 # FactoryTrial
 
-Just testing so-called Factory Pattern in simple Unity3D project. This implementation has also re-use (or pooling) for Unity gameobjects. Instantiating and destroying game objects in unity is a very expensive process, so re-using them might help pain a bit. 
+Just testing kind of "Factory Pattern" in simple Unity3D project. This implementation has also pooling feature for gameobjects. Instantiating and destroying game objects in unity is a very expensive process, so re-using them might help pain a bit. However, it should be kept in mind that pooling decreases CPU overhead during the gameplay but increases memory footprlnt. 
 
 ## Features in current version
 - GameObjectFactory is managing list of readily instantiated gameobjects ("pool")
