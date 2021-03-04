@@ -4,13 +4,12 @@ Just testing kind of "Factory Pattern" in simple Unity3D project. This implement
 
 ## Features in current version
 - GameObjectFactory is managing list of readily instantiated gameobjects ("pool")
+- List size increases automatically based on demand (creates new gameobjects to pool when close to the limit)
 - object spawner can order instantiated gameobjects from "factory"
 - object spawner can return used gameobjects back to "factory". No need to destroy objects after use.
 - gameobject ("Enemy" prefab in this case) uses event/delegate to inform spawner to put it back to pool
 
 ## Known issues / non-implemented features
-- Factory gameobject pool has only initial size in use -> need to implement mechanisms to increase pool size up to maximum limit
-- There will be error if pool is empty and spawner tries to get another instance (will be fixed soon)
-- Error handling mostly missing  
+- Factory gameobject pool size has no maximum size limitation in use yet. Need to figure out what is best way to implement that. 
 
 ## !Under Construction!
