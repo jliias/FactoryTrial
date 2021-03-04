@@ -23,7 +23,7 @@ public class GameObjectFactory
     // List for pool
     private List<GameObject> objectPool;
 
-    private int pointer;
+    private int totalCount;
 
     // Constructor
     public GameObjectFactory(int initPoolSize, int maxPoolSize, GameObject prefab)
@@ -32,19 +32,19 @@ public class GameObjectFactory
         this.maxPoolSize = maxPoolSize;
         this.prefab = prefab;
         this.objectPool = new List<GameObject>();
-        pointer = -1;
 
         for (int i = 0; i < initPoolSize; i++)
         {
             AddInstanceToPool(prefab);
+            totalCount++;
         }
 
-        Debug.Log("OBJECT COUNT: " + objectPool.Count);
+        Debug.Log("OBJECT COUNT: " + totalCount);
     }
 
     // Instantiate GameObject instance from prefab, 
     // de-activate it and add to objectPool list
-    private void AddInstanceToPool(GameObject addPrefab) 
+    private void AddInstanceToPool(GameObject addPrefab)
     {
         // Use Instantiate from Monodevelop
         GameObject newObj = (GameObject)GameObject.Instantiate(addPrefab);
@@ -55,7 +55,6 @@ public class GameObjectFactory
     // Return last instance from the objectPool list
     public GameObject GetNewInstance()
     {
-        Debug.Log("There are " + (objectPool.Count - 1) + " instances in Pool!");
         // Use Pop() method to get last instance
         return Pop(objectPool);
     }
@@ -63,31 +62,39 @@ public class GameObjectFactory
     // Pop implementation
     public GameObject Pop(List<GameObject> myList)
     {
-        // Check that list lenght is more than 1
         int length = objectPool.Count;
-        if (length > 0)
+        // If list length is 1 (or less)
+        // Add new instance to pool to avoid empty list situation
+        if (length <= 1)
         {
-            // first assign the  last value to a seperate string 
-            GameObject popObj = objectPool[objectPool.Count - 1];
-            // then remove it from list
-            myList.RemoveAt(myList.Count - 1);
-            // Activate and return gameobject 
-            popObj.SetActive(true);
-            return popObj;
+            AddInstanceToPool(prefab);
+            totalCount++;
         }
-        else {
-            return null;
-        }
+        // first assign the last object to a variable
+        GameObject popObj = objectPool[objectPool.Count - 1];
+        // then remove it from list
+        myList.RemoveAt(myList.Count - 1);
+        ReportPoolStatus();
+
+        // Activate and return gameobject 
+        popObj.SetActive(true);
+        return popObj;
     }
 
     // Put GameObject back to list (it is returned by spawner)
-    public void ReturnInstance(GameObject returnedInstance) {
+    public void ReturnInstance(GameObject returnedInstance)
+    {
         if (returnedInstance != null)
         {
             // disable instance and put it back to list
             returnedInstance.SetActive(false);
             objectPool.Add(returnedInstance);
-            Debug.Log("There are " + objectPool.Count + " instances in Pool!");
+            ReportPoolStatus();
         }
+    }
+
+    private void ReportPoolStatus()
+    {
+        Debug.Log("Pool depth: " + totalCount + " | " + " unused instances: " + objectPool.Count);
     }
 }

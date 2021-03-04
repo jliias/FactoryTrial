@@ -248,8 +248,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.3713955, g: 0.5131274, b: 0.735849, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -327,7 +327,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 3612000355082787798, guid: de2f23562968a7745864298c4c03b8a9,
     type: 3}
-  spawnRatePerMinute: 10
+  spawnRatePerMinute: 60
+  maxNumberOfEnemies: 20
 --- !u!4 &1706238852
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +372,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612000355082787798, guid: de2f23562968a7745864298c4c03b8a9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6330822643488292988, guid: de2f23562968a7745864298c4c03b8a9,
         type: 3}
